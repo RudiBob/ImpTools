@@ -1,11 +1,17 @@
-# ImpTools
-Handy Implementation Tools/Scripts and Journals
+# ImpTools for [CluedIn](https://www.cluedin.com/)
+Handy Implementation Tools/Scripts and Journals for managing [CluedIn](https://www.cluedin.com/) during implementation and troubleshooting.
+
+## Update 5 Feb 2023
+This fork is [https://github.com/RudiBob/ImpTools](https://github.com/RudiBob/ImpTools) as created by [RudiBob](https://github.com/RudiBob) rather than as owned by [CluedIn-io](https://github.com/CluedIn-io) - [https://github.com/CluedIn-io/ImpTools](https://github.com/CluedIn-io/ImpTools)
+
+I created this fork under by account since I wish to maintain the scripts and journals after leaving CluedIn and to continue to share and document my journeys with this amazing ["Graph-based, Azure-native Master Data Management platform"](https://www.cluedin.com/) - [RudiBob](https://github.com/RudiBob)
 
 ## PDF Journals
 These are journals that either demonstrate an
 - [example](examples/), or are
 - part of a [troubleshooting](troubleshooting/)
-process
+process, or were a
+- [install journal](install-journal/)
 
 ## Kubernetes Scripts
 - [k8s PowerShell Scripts](k8s/pwsh/)
