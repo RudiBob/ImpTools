@@ -1,5 +1,7 @@
 # Transfer Metadata and Settings between CluedIn Organizations
 
+Certain configuration objects can be extracted (serialized) from CluedIn (from the Sql Server at this time) and stored as a folder of json files. These json files can later be pushed (unserialized) to the same or another CluedIn instance. This is useful for CI/CD type scanarios.
+
 ## Configuration
 
 Use `config.json` to provide the ID of the organization to be exported (`from_organization_id`), and the ID of the organization to be imported {`to_organization_id`}.
@@ -15,9 +17,25 @@ Use `config.json` to provide the ID of the organization to be exported (`from_or
 }
 ```
 
+### Other Configuration
+
+To assist with unit tests and advanced scenarios, other environment varibles and configuration can be altered.
+
+| Name | Comments |
+| --- | --- |
+| Environment `TRANSER_SKIP_MAIN` | Set to true if we are running unit tests in order to skip the main function from being executed. |
+| Environment `DEFAULT_CONNECTION_STRING` | If defined then used by the unit tests to know which database to connect to, otherwise this will be set by the unit tests if run the first time. |
+| `config.json` "outdir" | override the output directory for the json files (default is `./data`) |
+| `config.json` "process_filter" | default false, if true then only process types that have been enabled below |
+| `config.json` "process_rules" | if process_filter true then set to true to enable rules to be processed |
+| `config.json` "process_entities" | same as process_rules but for entities |
+| `config.json` "process_dynamic_vocabularies" | same as process_rules but for dynamic vocabularies |
+| `config.json` "process_annotations" | same as process_rules but for annotations |
+| `config.json` "process_datasets" | same as process_rules but for datasets |
+
 ## Serialization
 
-The following command will dump all the necessary data to `/data` directory:
+The following command will dump all the necessary data to `./data` directory:
 
 ```powershell
 .\serialize.ps1
@@ -25,7 +43,7 @@ The following command will dump all the necessary data to `/data` directory:
 
 ## Deserialization
 
-The following command will restore the `/data` files to the `to_organization_id` organization:
+The following command will restore the `./data` files to the `to_organization_id` organization:
 
 ```powershell
 .\deserialize.ps1
@@ -33,3 +51,14 @@ The following command will restore the `/data` files to the `to_organization_id`
 
 All fields with the `from_organization_id` will be replaced with `to_organization_id` value.
 All fields with user IDs will be replaced with `to_user_id` value.
+
+## Testing
+
+Unit tests require a local sql server running (perhaps in docker), that has been preped by the CluedIn installation process.
+
+To run the unit tests, open a powershell window and ensure you are in this folder (i.e. the `transfer` folder) then run the command:
+
+```powershell
+PS C:\src\CluedIn-io\ImpTools> cd .\transfer\
+PS C:\src\CluedIn-io\ImpTools\transfer> Invoke-Pester 
+```
